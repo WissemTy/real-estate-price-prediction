@@ -229,7 +229,7 @@ soup = getSoup("https://www.immo-entre-particuliers.com/annonce-val-de-marne-lha
 # print("Nbr Chambre:", nbrchambres(soup))
 # print("Nbr Salle de bain:", nbrsdb(soup))
 # print("DPE:", dpe(soup))
-print("Information:", informations(soup))
+# print("Information:", informations(soup))
 
 
-# scrape_and_save_annonces()
+scrape_and_save_annonces()
