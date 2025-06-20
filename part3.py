@@ -8,6 +8,7 @@ from sklearn.neighbors import KNeighborsRegressor
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
 from sklearn.tree import DecisionTreeRegressor
+import seaborn as sns
 
 annonces_df = pd.read_csv('annonces_nettoyees.csv')
 
@@ -169,6 +170,7 @@ plt.xlabel("Valeurs réelles (y_test)")
 plt.ylabel("Estimations (y_pred)")
 plt.title(f"Estimation vs Réalité - Méthode M: KNN5 + Normalisation")
 plt.show()
+
 #TODO: Que constatez-vous ? Pensezvous que le jeu de données est suffisant pour construire un modèle d’apprentissage précis ?
 #Si le modèle était parfait, tous les points seraient alignés sur cette diagonale.
 #Ici, les prédictions sont souvent éloignées des valeurs réelles, indiquant une faible précision du modèle.
@@ -231,9 +233,26 @@ print(f"\t- Modèle M original: R² = {score_M:.4f}")
 
 # Question 27 - Matrice de corrélation
 correlation_matrix = annonces_df.corr()
+
 pd.set_option('display.max_columns', None)
 pd.set_option('display.width', 1000)
 print(f"\nQuestion 27 - Matrice de corrélation:\n{correlation_matrix.round(4)}")
+
+
+sorted_cols = correlation_matrix['Prix'].abs().sort_values(ascending=False).index
+sorted_corr_matrix = correlation_matrix.loc[sorted_cols, sorted_cols]
+
+plt.figure(figsize=(12, 10))
+sns.heatmap(sorted_corr_matrix, annot=True, fmt=".2f", cmap="coolwarm", square=True, cbar=True)
+plt.title("Matrice de corrélation triée par corrélation au prix")
+plt.tight_layout()
+plt.savefig("images/correlation_matrix_sorted.png")
+plt.show()
+
+
+
+
+
 
 # Question 28
 price_correlations = correlation_matrix['Prix'].drop('Prix')
@@ -270,3 +289,7 @@ print(f"\t- Modèle M réduit (5 meilleures variables): R² = {score_M_reduit:.4
 #Le score R² a augmenté significativement après avoir sélectionné uniquement les 5 attributs les plus corrélés (de 0.0471 à 0.1584).
 #Cela signifie que :
 #Les variables les plus corrélées avec le prix étaient les plus pertinentes pour la prédiction.
+
+
+
+
