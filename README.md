@@ -49,11 +49,18 @@ Cleaned data is saved as: `annonces_nettoyees.csv`.
 
 ## 🤖 Part 3 – Modeling & Evaluation
 
+Several regression models were tested to estimate property prices based on the cleaned dataset. The following models and preprocessing techniques were evaluated:
+
+- **Linear Regression (LR)**
+- **Decision Tree Regressor** (`DecisionTreeRegressor(max_depth=4)`)
+- **K-Nearest Neighbors** (`KNeighborsRegressor(n_neighbors=4)`)
+- Preprocessing: `MinMaxScaler` (Normalization) and `StandardScaler` (Standardization)
+
 ### Model M: K-Nearest Neighbors (KNN)
 
+- **Final Model**: `KNeighborsRegressor(n_neighbors=5)`
 - **Features**: All numeric and encoded variables from the cleaned dataset
 - **Preprocessing**: Normalization using `MinMaxScaler`
-- **Model**: `KNeighborsRegressor(n_neighbors=5)`
 - **Visualization**:
   - *Figure 1*: Scatter plot comparing predicted vs actual prices
   - *Figure 2*: Heatmap of feature correlations with the target (`Price`)
@@ -61,6 +68,7 @@ Cleaned data is saved as: `annonces_nettoyees.csv`.
 ### Additional Steps:
 - Dimensionality reduction using PCA (2 components)
 - Comparison of model performance with and without PCA
+
 
 ---
 
